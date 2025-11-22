@@ -1,0 +1,33 @@
+[
+  {
+    "id": "e1",
+    "sender": "alice@example.com",
+    "subject": "Meeting request: Project sync",
+    "timestamp": "2025-11-18T10:00:00Z",
+    "body": "Hi, can we meet tomorrow to discuss the project milestones? Please share agenda.",
+    "thread": [],
+    "category": "To-Do",
+    "action_items": [],
+    "draft": {
+      "subject": "Re: Meeting request: Project sync",
+      "body": "Subject: Re: Meeting request: Project sync\nFrom: [Your Name]\nTo: [Sender's Name]\n\nDear [Sender's Name],\n\nThank you for reaching out. I'd be happy to discuss the project milestones. Before we schedule a meeting, could you please share more details about the topics you'd like to cover and what you're hoping to achieve from our discussion? I'd also like to confirm if you'd prefer a call or in-person meeting.\n\nLooking forward to hearing back from you.\n\nBest regards,\n[Your Name]",
+      "savedAt": "2025-11-20T18:08:59.397Z"
+    }
+  },
+  {
+    "id": "e2",
+    "sender": "newsletter@news.com",
+    "subject": "Weekly Tech Roundup",
+    "timestamp": "2025-11-16T08:00:00Z",
+    "body": "This week's highlights...",
+    "category": "Newsletter",
+    "action_items": {
+      "raw": "I don't see any action items in the email. \n\nSo, the array would be:\n\n[]"
+    },
+    "draft": {
+      "subject": "Re: Weekly Tech Roundup",
+      "body": "Since there is no sender's name, I'll draft a polite reply without a greeting or signature.\n\nDear Sir/Madam,\n\nThank you for sending over this week's tech highlights. I'd love to catch up on the latest news and trends. Unfortunately, your email appears to be truncated. Could you please share a brief summary or provide a link to access the full round-up?\n\nLooking forward to hearing back from you.\n\nBest regards,\n[Your Name]",
+      "savedAt": "2025-11-20T18:09:05.133Z"
+    }
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "categorization": "Categorize emails into: Important, Newsletter, Spam, To-Do. To-Do means a direct request requiring user action. Respond with a single category string.",
+  "action_item": "Extract action items from the email. Respond JSON array of objects [{\"task\":\"...\",\"deadline\":\"...\"}] or [] if none.\n",
+  "auto_reply": "Draft a polite reply. Use sender name if available. Keep reply concise and ask clarifying questions if needed."
+}
