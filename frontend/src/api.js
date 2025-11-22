@@ -1,7 +1,6 @@
 // src/api.js
-const envFromVite = import.meta?.env?.VITE_API_URL;
-const envFromProcess = typeof process !== 'undefined' ? process.env?.REACT_APP_API_BASE : undefined;
-const BASE = (envFromVite || envFromProcess || 'http://localhost:4000/api').replace(/\/$/, '');
+// Hardcoded backend URL for production deployment
+const BASE = 'https://email-agent-vxc5.onrender.com/api';
 
 function getToken() {
   return localStorage.getItem('token');
@@ -16,7 +15,7 @@ async function authFetch(path, opts = {}) {
   if (res.status === 401) {
     localStorage.removeItem('token');
   }
-  const data = await res.json().catch(()=> null);
+  const data = await res.json().catch(() => null);
   if (!res.ok) throw { status: res.status, data };
   return data;
 }
@@ -24,7 +23,7 @@ async function authFetch(path, opts = {}) {
 // public fetch (no auth)
 async function publicFetch(path, opts = {}) {
   const res = await fetch(`${BASE}${path}`, { ...opts });
-  const data = await res.json().catch(()=> null);
+  const data = await res.json().catch(() => null);
   if (!res.ok) throw { status: res.status, data };
   return data;
 }
@@ -34,14 +33,14 @@ export async function fetchEmails() { return authFetch('/emails'); }
 export async function importEmail(payload) { return authFetch('/emails/import', { method: 'POST', body: JSON.stringify(payload), headers: { 'Content-Type': 'application/json' } }); }
 export async function fetchEmail(id) { return authFetch(`/emails/${id}`); }
 export async function processEmail(id) { return authFetch(`/emails/${id}/process`, { method: 'POST' }); }
-export async function saveDraft(payload) { return authFetch('/emails/save-draft', { method: 'POST', body: JSON.stringify(payload), headers: {'Content-Type':'application/json'} }); }
+export async function saveDraft(payload) { return authFetch('/emails/save-draft', { method: 'POST', body: JSON.stringify(payload), headers: { 'Content-Type': 'application/json' } }); }
 
 export async function fetchPrompts() { return authFetch('/prompts'); }
-export async function savePrompts(payload) { return authFetch('/prompts', { method: 'PUT', body: JSON.stringify(payload), headers: {'Content-Type':'application/json'} }); }
+export async function savePrompts(payload) { return authFetch('/prompts', { method: 'PUT', body: JSON.stringify(payload), headers: { 'Content-Type': 'application/json' } }); }
 
 /* Auth endpoints (public) */
-export async function register(payload) { return publicFetch('/auth/register', { method:'POST', body: JSON.stringify(payload), headers:{'Content-Type':'application/json'} });}
-export async function login(payload) { return publicFetch('/auth/login', { method:'POST', body: JSON.stringify(payload), headers:{'Content-Type':'application/json'} });}
+export async function register(payload) { return publicFetch('/auth/register', { method: 'POST', body: JSON.stringify(payload), headers: { 'Content-Type': 'application/json' } }); }
+export async function login(payload) { return publicFetch('/auth/login', { method: 'POST', body: JSON.stringify(payload), headers: { 'Content-Type': 'application/json' } }); }
 
 /* Profile */
 export async function fetchProfile() { return authFetch('/profile'); }
