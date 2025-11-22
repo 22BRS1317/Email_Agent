@@ -8,6 +8,7 @@ import InboxPage from './pages/InboxPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import OAuthSuccess from './pages/OAuthSuccess';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import './App.css';
 
 function ThemeToggle() {
@@ -85,6 +86,7 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/oauth-success" element={<OAuthSuccess />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>
