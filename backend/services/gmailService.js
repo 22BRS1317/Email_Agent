@@ -4,21 +4,28 @@ const { google } = require('googleapis');
 /**
  * Get Gmail OAuth2 client
  */
-function getGmailClient(accessToken) {
-  const oauth2Client = new google.auth.OAuth2();
-  oauth2Client.setCredentials({ access_token: accessToken });
+function getGmailClient(accessToken, refreshToken) {
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET
+  );
+  oauth2Client.setCredentials({
+    access_token: accessToken,
+    refresh_token: refreshToken
+  });
   return google.gmail({ version: 'v1', auth: oauth2Client });
 }
 
 /**
  * Fetch list of emails from Gmail
  * @param {string} accessToken - Gmail access token
+ * @param {string} refreshToken - Gmail refresh token (optional)
  * @param {number} maxResults - Maximum number of emails to fetch (default: 50)
  * @returns {Promise<Array>} List of email summaries
  */
-async function fetchEmailList(accessToken, maxResults = 50) {
+async function fetchEmailList(accessToken, refreshToken, maxResults = 50) {
   try {
-    const gmail = getGmailClient(accessToken);
+    const gmail = getGmailClient(accessToken, refreshToken);
     const response = await gmail.users.messages.list({
       userId: 'me',
       maxResults,
@@ -49,6 +56,10 @@ async function fetchEmailList(accessToken, maxResults = 50) {
     return emails.filter(email => email !== null);
   } catch (err) {
     console.error('Error fetching Gmail emails:', err);
+    // Check for authentication errors
+    if (err.code === 401 || err.message.includes('invalid authentication credentials')) {
+      throw new Error('UNAUTHENTICATED');
+    }
     throw new Error(`Failed to fetch Gmail emails: ${err.message}`);
   }
 }

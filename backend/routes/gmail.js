@@ -14,10 +14,10 @@ const router = express.Router();
 router.get('/auth-url', requireAuth, (req, res) => {
   try {
     const redirectUri = process.env.GOOGLE_REDIRECT_URI || `${req.protocol}://${req.get('host')}/api/gmail/callback`;
-    
+
     // Include JWT token in state parameter so we can identify user in callback
     const state = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET, { expiresIn: '10m' });
-    
+
     const authUrl = getAuthUrl(redirectUri, state);
     res.json({ authUrl });
   } catch (err) {
@@ -67,7 +67,7 @@ router.get('/callback', async (req, res) => {
 
     // Remove existing Google token if any
     user.tokens = user.tokens.filter(t => t.provider !== 'google');
-    
+
     // Add new Google token
     user.tokens.push({
       provider: 'google',
@@ -107,11 +107,15 @@ router.get('/emails', requireAuth, async (req, res) => {
     }
 
     const maxResults = parseInt(req.query.maxResults) || 50;
-    const emails = await fetchEmailList(googleToken.access_token, maxResults);
-    
+    // Pass refresh token to allow auto-refresh if access token is expired
+    const emails = await fetchEmailList(googleToken.access_token, googleToken.refresh_token, maxResults);
+
     res.json({ emails, count: emails.length });
   } catch (err) {
     console.error('Error fetching Gmail emails:', err);
+    if (err.message === 'UNAUTHENTICATED' || err.message.includes('UNAUTHENTICATED')) {
+      return res.status(401).json({ error: 'Gmail authentication failed. Please reconnect your account.' });
+    }
     res.status(500).json({ error: 'failed to fetch Gmail emails', details: err.message });
   }
 });
@@ -129,7 +133,7 @@ router.get('/status', requireAuth, async (req, res) => {
 
     const googleToken = user.tokens.find(t => t.provider === 'google');
     const connected = !!(googleToken && googleToken.access_token);
-    
+
     res.json({ connected, email: user.email });
   } catch (err) {
     console.error('Error checking Gmail status:', err);
