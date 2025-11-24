@@ -5,7 +5,8 @@
 [data-theme="light"] {
   --bg-primary: #f0f4f8;
   --bg-secondary: rgba(255, 255, 255, 0.65);
-  --bg-tertiary: #e4e4e7; /* Added for hover clarity */
+  --bg-tertiary: #e4e4e7;
+  /* Added for hover clarity */
   --text-primary: #1e293b;
   --text-secondary: #475569;
   --text-tertiary: #94a3b8;
@@ -28,7 +29,8 @@
 [data-theme="dark"] {
   --bg-primary: #0f172a;
   --bg-secondary: rgba(30, 41, 59, 0.7);
-  --bg-tertiary: #3f3f46; /* Added for hover clarity */
+  --bg-tertiary: #3f3f46;
+  /* Added for hover clarity */
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
   --text-tertiary: #94a3b8;
@@ -103,7 +105,7 @@ body::before {
   border-radius: 20px;
   box-shadow: var(--card-shadow);
   /* Added transform to transition for smoother hover */
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card:hover,
@@ -117,7 +119,7 @@ body::before {
 /* --- Navbar Styles (Sticky Header - Glassmorphism) --- */
 .navbar {
   /* Consolidated Glassmorphism styles */
-  background: var(--glass-bg); 
+  background: var(--glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--glass-border);
@@ -142,7 +144,8 @@ body::before {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-decoration: none; /* Ensure no underline */
+  text-decoration: none;
+  /* Ensure no underline */
 }
 
 .navbar-actions {
@@ -234,7 +237,7 @@ body::before {
   justify-content: space-between;
   align-items: center;
   /* Updated for theme consistency */
-  background: var(--bg-secondary); 
+  background: var(--bg-secondary);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-top-left-radius: 20px;
@@ -525,4 +528,54 @@ a:hover {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(156, 163, 175, 0.8);
+}
+
+/* --- Footer Styles --- */
+.footer {
+  width: 100%;
+  padding: 1.5rem 0;
+  margin-top: auto;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid var(--glass-border);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  z-index: 10;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: var(--text-primary);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--accent-primary);
+}
+
+.separator {
+  color: var(--text-tertiary);
+}
+
+.footer-copyright {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
 }

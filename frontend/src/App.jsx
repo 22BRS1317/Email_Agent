@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import OAuthSuccess from './pages/OAuthSuccess';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Footer from './components/Footer';
 import './App.css';
 
 function ThemeToggle() {
@@ -72,8 +73,8 @@ export default function App() {
     <ThemeProvider>
       <AuthProvider>
         <BrowserRouter>
-          <NavBar />
           <div className="App">
+            <NavBar />
             <Routes>
               <Route
                 path="/"
@@ -89,6 +90,7 @@ export default function App() {
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
+            <Footer />
           </div>
         </BrowserRouter>
       </AuthProvider>
